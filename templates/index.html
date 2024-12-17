@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-3809749496544897">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3809749496544897"
+     crossorigin="anonymous"></script>
+     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <title>Página Inicial - Conversor Cxrzin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo" class="logo-img">
+            <h1>Conversor Cxrzin</h1>
+        </div>
+    </header>
+
+    <div class="toolbar">
+        <a href="https://conversormp4m4vparamp3.onrender.com/" target="_blank">MP4/M4V Para MP3</a>
+        <a href="https://conversorpdfexcel.onrender.com" target="_blank">PDF Para Excel/Excel Para PDF</a>
+        <a href="https://conversorpdfeword.onrender.com" target="_blank">PDF Para Word/Word Para PDF</a>
+        <a href="https://conversorpdfparaimagens.onrender.com" target="_blank">PDF Para Png/Jpg</a>
+    </div>
+
+    <main>
+        <section class="hero">
+            <img src="{{ url_for('static', filename='images/image.jpg') }}" alt="Imagem do Posto" class="hero-img">
+            <div class="hero-text">
+                <h2>Bem-vindo ao Conversor Cxrzin</h2>
+                <p>Com o Conversor Cxrzin, você tem acesso a uma plataforma prática e eficiente para conversão de arquivos.</p>
+                <p>Oferecemos suporte a vários formatos, garantindo que você tenha a melhor experiência ao utilizar nossos serviços.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Conversor Cxrzin. Todos os direitos reservados. | <a href="{{ url_for('termos_de_uso') }}" id="termsLink">Termos de Uso</a> | <a href="{{ url_for('politica_privacidade') }}">Política de Privacidade</a></p>
+    </footer>
+
+    <div class="cookie-consent" id="cookieConsent">
+        <p><strong>Termo de Consentimento para Tratamento de Dados</strong></p>
+        <p>
+            Ao utilizar o <strong>Conversor Cxrzin</strong>, você concorda com o uso de cookies para melhorar sua experiência de navegação e otimizar os serviços oferecidos, conforme nossa Política de Privacidade.
+            <a href="#termo-completo" id="readMore">Leia mais...</a>
+        </p>
+        <button onclick="acceptCookies()">Aceitar</button>
+    </div>
+
+    <div id="termo-completo" style="display:none;">
+        <button id="closeTermo" style="float: right;">X</button>
+        <h3>Termo de Consentimento para Tratamento de Dados Pessoais</h3>
+        <p>O sistema <strong>Conversor Cxrzin</strong> poderá coletar e armazenar os seguintes dados pessoais:</p>
+        <ul>
+            <li>Dados de navegação, como o endereço IP, para garantir a segurança e a performance do sistema.</li>
+            <li>Preferências de idioma e configurações de navegação para personalizar sua experiência.</li>
+        </ul>
+        <p><strong>Finalidade do Tratamento de Dados</strong></p>
+        <p>Os dados coletados são utilizados para aprimorar os serviços, realizar ajustes de desempenho e proporcionar uma experiência mais personalizada.</p>
+        <p><strong>Compartilhamento de Dados</strong></p>
+        <p>Os dados pessoais poderão ser compartilhados com parceiros apenas para cumprir com a operação do serviço, sempre de acordo com as regras da nossa Política de Privacidade.</p>
+        <p><strong>Segurança e Armazenamento dos Dados</strong></p>
+        <p>O sistema adota medidas técnicas de segurança para proteger seus dados contra acessos não autorizados.</p>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById('cookieConsent').style.display = 'block';
+        });
+
+        function acceptCookies() {
+            document.getElementById('cookieConsent').style.display = 'none';
+            alert('Você aceitou o uso de cookies.');
+        }
+
+        document.getElementById('readMore').addEventListener('click', function() {
+            document.getElementById('termo-completo').style.display = 'block';
+        });
+
+        document.getElementById('closeTermo').addEventListener('click', function() {
+            document.getElementById('termo-completo').style.display = 'none';
+        });
+    </script>
+</body>
+</html>

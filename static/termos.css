@@ -1,0 +1,193 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fonte */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    padding: 5px;
+    line-height: 1.8; /* Melhorando a legibilidade */
+}
+
+/* Cabeçalho */
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+header .logo img {
+    width: 50px;
+    height: 50px;
+}
+
+header h1 {
+    font-size: 24px;
+    margin-top: 10px; /* Espaço superior */
+}
+
+/* Barra de navegação */
+.toolbar {
+    background-color: #444;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.toolbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.toolbar a:hover {
+    background-color: #555;
+}
+
+/* Seção principal */
+main {
+    padding: 20px;
+}
+
+.terms-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #4CAF50; /* Cor de destaque */
+}
+
+.terms-content p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+/* Rodapé */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 30px; /* Espaço superior */
+}
+
+footer a {
+    color: #ff9900;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Consentimento de cookies */
+.cookie-consent {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    display: none;
+}
+
+.cookie-consent button {
+    background-color: #ff9900;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.cookie-consent button:hover {
+    background-color: #e68900;
+}
+
+/* Página de Termos de Uso */
+#termo-completo {
+    background-color: white;
+    color: #333;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#termo-completo h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#termo-completo p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+#termo-completo ul {
+    margin-left: 20px;
+    list-style-type: disc;
+    margin-bottom: 20px;
+}
+
+#closeTermo {
+    background-color: #ff9900;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    float: right;
+}
+
+#closeTermo:hover {
+    background-color: #e68900;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 20px;
+    }
+
+    .terms-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .cookie-consent {
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .cookie-consent button {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+
+    #termo-completo {
+        margin-top: 10px;
+    }
+}
