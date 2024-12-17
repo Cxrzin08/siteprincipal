@@ -1,0 +1,24 @@
+name: Keep Sites Active
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # Executa a cada 5 minutos
+  workflow_dispatch:
+
+jobs:
+  keep-sites-active:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script
+        run: python manter_ativos.py
