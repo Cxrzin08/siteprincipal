@@ -281,4 +281,28 @@ footer a:hover {
         font-size: 0.8em;
         padding: 6px 12px;
     }
+
+    .hero {
+        flex-direction: column; /* Organiza imagem e texto em coluna */
+        padding: 50px;
+    }
+
+    .hero-img {
+        width: 80%; /* A imagem ocupará 80% da largura */
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .hero-text {
+        width: 100%; /* Texto ocupará toda a largura restante */
+        text-align: center;
+    }
+
+    .hero-text h2 {
+        font-size: 2em;
+    }
+
+    .hero-text p {
+        font-size: 1em;
+    }
 }
