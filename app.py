@@ -9,7 +9,6 @@ from openpyxl import Workbook
 from moviepy.editor import AudioFileClip
 from docx import Document
 import fitz
-import shutil
 
 app = Flask(__name__)
 
