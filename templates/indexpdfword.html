@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-adsense-account" content="ca-pub-3809749496544897">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3809749496544897"
+     crossorigin="anonymous"></script>
+<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+<script type="text/javascript">
+    aclib.runAutoTag({
+        zoneId: 'bjsxywcht0',
+    });
+</script>
+
+
+    <meta name="description" content="Transforme seus arquivos Excel em PDF e PDF em Excel em segundos! Ferramenta fácil de usar, online e gratuita.">
+    <title>Conversor Excel ↔ PDF - Rápido, Fácil e Gratuito</title>
+    <link rel="stylesheet" href="/static/stylespdfword.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Conversor PDF ↔ Word By Cxrzin</h1>
+        <form action="/convert" method="post" enctype="multipart/form-data">
+            <label for="fileInput">Selecione um arquivo:</label>
+            <input type="file" id="fileInput" name="file" required>
+            
+            <label for="conversionType">Escolha o tipo de conversão:</label>
+            <select id="conversionType" name="conversionType" required>
+                <option value="pdf-to-word" style="color: #000;">PDF para Word</option>
+                <option value="word-to-pdf" style="color: #000;">Word para PDF</option>
+            </select>
+            
+            <button type="submit">Converter</button>
+        </form>
+
+        {% if download_link %}
+        <div id="result">
+            <h2>Resultado:</h2>
+            <a href="{{ download_link }}" download>Baixar Arquivo Convertido</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

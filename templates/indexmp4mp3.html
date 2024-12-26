@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Converta vídeos MP4 ou M4V em MP3 de forma rápida, fácil e gratuita!">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3809749496544897" crossorigin="anonymous"></script>
+    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+    <script type="text/javascript">
+        aclib.runAutoTag({
+            zoneId: 'kuqh1jawru',
+        });
+    </script>
+    <title>Conversor MP4/M4V para MP3 - By Cxrzin</title>
+    <link rel="stylesheet" href="/static/stylesmp4mp3.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Conversor MP4/M4V para MP3 - By Cxrzin</h1>
+        <form action="/convert_video_to_audio" method="post" enctype="multipart/form-data">
+            <label for="fileInput">Selecione um arquivo:</label>
+            <input type="file" id="fileInput" name="file" required>
+
+            <label for="conversionType">Escolha o tipo de conversão:</label>
+            <select id="conversionType" name="conversionType" required>
+                <option value="mp4-to-mp3">MP4 para MP3</option>
+                <option value="m4v-to-mp3">M4V para MP3</option>
+            </select>
+
+            <button type="submit">Converter</button>
+        </form>
+
+        <p><strong>Tamanho máximo do arquivo: 1 GB</strong></p>
+
+        {% if download_link %}
+        <div id="result">
+            <h2>Resultado:</h2>
+            <a href="{{ download_link }}" download>Baixar Arquivo Convertido</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

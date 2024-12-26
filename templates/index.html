@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
-<script type="text/javascript">
-    aclib.runInPagePush({
-        zoneId: '9212878',
-        refreshRate: 30,
-        maxAds: 2,
-    });
-</script>
-<script type="text/javascript">
-    aclib.runAutoTag({
-        zoneId: 'mvlyv3gdqe',
-    });
-</script>
-     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script id="aclib" type="text/javascript" src="//acscdn.com/script/aclib.js"></script>
+    <script type="text/javascript">
+        aclib.runInPagePush({
+            zoneId: '9212878',
+            refreshRate: 30,
+            maxAds: 2,
+        });
+    </script>
+    <script type="text/javascript">
+        aclib.runAutoTag({
+            zoneId: 'mvlyv3gdqe',
+        });
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <title>Página Inicial - Conversor Cxrzin</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <header>
-<p>Ao apertar em uma das opções, volte e tente apertar novamente para fechar o anúncio.</p>
+        <p>Ao apertar em uma das opções, volte e tente apertar novamente para fechar o anúncio.</p>
         <div class="logo">
             <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo" class="logo-img">
             <h1>Conversor Cxrzin</h1>
@@ -31,10 +31,10 @@
     </header>
 
     <div class="toolbar">
-        <a href="https://conversormp4m4vparamp3.onrender.com/" target="_blank">MP4/M4V Para MP3</a>
-        <a href="https://conversorpdfexcel.onrender.com" target="_blank">PDF Para Excel/Excel Para PDF</a>
-        <a href="https://conversorpdfeword.onrender.com" target="_blank">PDF Para Word/Word Para PDF</a>
-        <a href="https://conversorpdfparaimagens.onrender.com" target="_blank">PDF Para Png/Jpg</a>
+        <a href="{{ url_for('conversao_mp4mp3') }}" target="_blank">MP4/M4V Para MP3</a>
+        <a href="{{ url_for('conversao_excelorpdf') }}" target="_blank">PDF Para Excel/Excel Para PDF</a>
+        <a href="{{ url_for('conversao_pdfword') }}" target="_blank">PDF Para Word/Word Para PDF</a>
+        <a href="{{ url_for('conversao_pdfimagens') }}" target="_blank">PDF Para Png/Jpg</a>
     </div>
 
     <main>
@@ -42,7 +42,7 @@
             <img src="{{ url_for('static', filename='images/image.jpg') }}" alt="Imagem do Posto" class="hero-img">
             <div class="hero-text">
                 <h2>Bem-vindo ao Conversor Cxrzin</h2>
-<p>Ao apertar em umas das opções, volte e tente apertar novamente para fechar o anúncio</p>
+                <p>Ao apertar em uma das opções, volte e tente apertar novamente para fechar o anúncio</p>
                 <p>Com o Conversor Cxrzin, você tem acesso a uma plataforma prática e eficiente para conversão de arquivos.</p>
                 <p>Oferecemos suporte a vários formatos, garantindo que você tenha a melhor experiência ao utilizar nossos serviços.</p>
             </div>

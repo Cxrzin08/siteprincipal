@@ -1,20 +1,18 @@
-/* Reset básico */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Fonte */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f4f4f9;
     color: #333;
     padding: 5px;
-    line-height: 1.8; /* Aumentei o line-height para melhorar a legibilidade */
+    line-height: 1.8;
 }
 
-/* Cabeçalho */
 header {
     background-color: #333;
     color: white;
@@ -36,10 +34,9 @@ header .logo img {
 
 header h1 {
     font-size: 24px;
-    margin-top: 10px; /* Adicionado um espaço superior */
+    margin-top: 10px;
 }
 
-/* Barra de navegação */
 .toolbar {
     background-color: #444;
     padding: 10px;
@@ -54,14 +51,13 @@ header h1 {
     font-weight: 600;
     padding: 8px 15px;
     border-radius: 5px;
-    margin-bottom: 10px; /* Adicionado espaço inferior */
+    margin-bottom: 10px;
 }
 
 .toolbar a:hover {
     background-color: #555;
 }
 
-/* Seção principal (Hero) */
 .hero {
     display: flex;
     justify-content: space-between;
@@ -69,12 +65,12 @@ header h1 {
     text-align: left;
     background-color: #fff;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px; /* Adicionado espaçamento inferior */
+    margin-bottom: 30px;
 }
 
 .hero .hero-text {
     max-width: 60%;
-    margin-right: 20px; /* Espaço à direita da seção de texto */
+    margin-right: 20px; 
 }
 
 .hero h2 {
@@ -84,7 +80,7 @@ header h1 {
 
 .hero p {
     font-size: 16px;
-    margin-bottom: 20px; /* Aumentei o espaço entre os parágrafos */
+    margin-bottom: 20px;
 }
 
 .hero-img {
@@ -93,27 +89,27 @@ header h1 {
     border-radius: 10px;
 }
 
-/* Rodapé */
+
 footer {
     background-color: #333;
     color: white;
     text-align: center;
     padding: 20px;
     font-size: 14px;
-    margin-top: 30px; /* Espaço superior */
+    margin-top: 30px;
 }
 
 footer a {
     color: #ff9900;
     text-decoration: none;
-    margin-left: 10px; /* Espaço à esquerda dos links */
+    margin-left: 10px;
 }
 
 footer a:hover {
     text-decoration: underline;
 }
 
-/* Consentimento de cookies */
+
 .cookie-consent {
     position: fixed;
     bottom: 0;
@@ -134,20 +130,19 @@ footer a:hover {
     padding: 10px 20px;
     font-size: 14px;
     cursor: pointer;
-    margin-top: 10px; /* Espaço superior do botão */
+    margin-top: 10px;
 }
 
 .cookie-consent button:hover {
     background-color: #e68900;
 }
 
-/* Página de Política de Privacidade */
 #termo-completo {
     background-color: white;
     color: #333;
     padding: 20px;
     margin-top: 20px;
-    margin-bottom: 30px; /* Adicionado espaço inferior */
+    margin-bottom: 30px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -159,13 +154,13 @@ footer a:hover {
 #termo-completo p {
     font-size: 16px;
     line-height: 1.8;
-    margin-bottom: 20px; /* Espaço entre os parágrafos */
+    margin-bottom: 20px;
 }
 
 #termo-completo ul {
     margin-left: 20px;
     list-style-type: disc;
-    margin-bottom: 20px; /* Espaço inferior para listas */
+    margin-bottom: 20px;
 }
 
 #closeTermo {
@@ -182,7 +177,6 @@ footer a:hover {
     background-color: #e68900;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     .hero {
         flex-direction: column;

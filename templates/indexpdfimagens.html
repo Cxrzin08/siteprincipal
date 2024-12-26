@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Transforme seus arquivos PDF em imagens JPG ou PNG em segundos! Ferramenta fácil de usar, online e gratuita.">
+    <title>Conversor PDF ↔ Imagem - Rápido, Fácil e Gratuito</title>
+    <link rel="stylesheet" href="/static/stylespdfimagens.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Conversor PDF para Imagens By Cxrzin</h1>
+        <form action="/convert_images" method="post" enctype="multipart/form-data">
+            <label for="fileInput">Selecione um arquivo PDF:</label>
+            <input type="file" id="fileInput" name="file" required>
+            
+            <label for="outputFormat">Escolha o formato de saída:</label>
+            <select id="outputFormat" name="outputFormat" required>
+                <option value="PNG" style="color: #000;">PNG</option>
+                <option value="JPG" style="color: #000;">JPG</option>
+            </select>
+            
+            <button type="submit">Converter</button>
+        </form>
+
+        {% if download_link %}
+        <div id="result">
+            <h2>Resultado:</h2>
+            <a href="{{ download_link }}" download>Baixar Arquivo Convertido</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
