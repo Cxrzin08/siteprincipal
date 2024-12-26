@@ -1,4 +1,10 @@
-flask
-gunicorn
-requests
-subprocess
+Flask
+Werkzeug
+reportlab
+pdfplumber
+pandas
+openpyxl
+moviepy
+python-docx
+PyMuPDF
+shutil
