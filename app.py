@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template, send_file, url_for
+from flask import Flask, request, render_template, send_file, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -9,6 +9,8 @@ from openpyxl import Workbook
 from moviepy import AudioFileClip
 from docx import Document
 import fitz
+from fpdf import FPDF
+import PyPDF2
 
 app = Flask(__name__)
 
@@ -49,9 +51,9 @@ def conversao_mp4mp3():
 def conversao_excelorpdf():
     return render_template('indexexcelpdf.html')
 
-@app.route('/conversao_pdfimagens')
+@app.route('/conversao_txtpdf')
 def conversao_pdfimagens():
-    return render_template('indexpdfimagens.html')
+    return render_template('indexpdftxt.html')
 
 @app.route("/convert_file", methods=["POST"])
 def convert_file():
@@ -166,6 +168,75 @@ def convert_excel_to_pdf_route():
 
     download_link = url_for("download_file", filename=os.path.basename(output_path))
     return render_template("indexexcelpdf.html", download_link=download_link)
+
+@app.route("/converterpdf-txt", methods=["POST"])
+def converter_pdf_txt():
+    """Converte arquivos entre PDF e TXT com base no tipo selecionado."""
+    file = request.files.get("file")
+    conversion_type = request.form.get("conversionType")
+
+    if not file or not conversion_type:
+        return "Arquivo ou tipo de conversão não selecionado.", 400
+
+    input_filename = secure_filename(file.filename)
+    input_path = os.path.join(app.config["UPLOAD_FOLDER"], input_filename)
+    file.save(input_path)
+
+    output_filename = f"converted_{os.path.splitext(input_filename)[0]}"
+    output_path = None
+
+    try:
+        if conversion_type == "pdf-to-txt":
+            if not is_valid_extension(input_filename, [".pdf"]):
+                return "Erro: Para PDF para TXT, o arquivo enviado deve ser um PDF.", 400
+            output_path = os.path.join(app.config["UPLOAD_FOLDER"], output_filename + ".txt")
+            convert_pdf_to_txt(input_path, output_path)
+        elif conversion_type == "txt-to-pdf":
+            if not is_valid_extension(input_filename, [".txt"]):
+                return "Erro: Para TXT para PDF, o arquivo enviado deve ser um TXT.", 400
+            output_path = os.path.join(app.config["UPLOAD_FOLDER"], output_filename + ".pdf")
+            convert_txt_to_pdf(input_path, output_path)
+        else:
+            return "Tipo de conversão inválido.", 400
+    except Exception as e:
+        return f"Erro inesperado: {str(e)}", 500
+
+    return send_file(output_path, as_attachment=True, download_name=os.path.basename(output_path), mimetype="application/octet-stream")
+
+@app.route("/download/<filename>")
+def download_filetxt(filename):
+    """Serve o arquivo convertido para download."""
+    try:
+        directory = app.config["UPLOAD_FOLDER"]
+        return send_file(os.path.join(directory, filename), as_attachment=True)
+    except Exception as e:
+        return f"Erro ao tentar fazer o download: {str(e)}", 500
+
+def convert_pdf_to_txt(input_path, output_path):
+    """Converte PDF para TXT."""
+    try:
+        with open(output_path, "w", encoding="utf-8") as txt_file:
+            with open(input_path, "rb") as pdf_file:
+                reader = PyPDF2.PdfReader(pdf_file)
+                for page in reader.pages:
+                    txt_file.write(page.extract_text() + "\n")
+    except Exception as e:
+        raise Exception(f"Erro ao converter PDF para TXT: {str(e)}")
+
+def convert_txt_to_pdf(input_path, output_path):
+    """Converte TXT para PDF."""
+    try:
+        pdf = FPDF()
+        pdf.set_auto_page_break(auto=True, margin=15)
+        pdf.add_page()
+        pdf.set_font("Arial", size=12)
+        with open(input_path, "r", encoding="utf-8") as txt_file:
+            for line in txt_file:
+                pdf.multi_cell(0, 10, line)
+        pdf.output(output_path)
+    except Exception as e:
+        raise Exception(f"Erro ao converter TXT para PDF: {str(e)}")
+
 
 @app.route("/converterpdfword", methods=["POST"])
 def converter_pdf_e_word():

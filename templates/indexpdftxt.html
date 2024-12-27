@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3809749496544897"
+     crossorigin="anonymous"></script>
+     <meta name="description" content="Transforme seus arquivos Txt em PDF e PDF em Txt em segundos! Ferramenta fácil de usar, online e gratuita.">
+    <title>Conversor PDF ↔ TXT</title>
+    <link rel="stylesheet" href="/static/stylestxtpdf.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Conversor PDF ↔ TXT</h1>
+        <form action="/converterpdf-txt" method="POST" enctype="multipart/form-data">
+            <label for="fileInput">Selecione um arquivo:</label>
+            <input type="file" id="fileInput" name="file" required>
+
+            <label for="conversionType">Escolha o tipo de conversão:</label>
+            <select id="conversionType" name="conversionType" required>
+                <option value="pdf-to-txt" style="color: #0000;">PDF para TXT</option>
+                <option value="txt-to-pdf" style="color: #0000;">TXT para PDF</option>
+            </select>
+
+            <button type="submit">Converter</button>
+        </form>
+
+        {% if download_link %}
+        <div id="result">
+            <h2>Resultado:</h2>
+            <a href="{{ download_link }}" download>Baixar Arquivo Convertido</a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
