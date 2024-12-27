@@ -6,7 +6,7 @@ from reportlab.pdfgen import canvas
 import pdfplumber
 import pandas as pd
 from openpyxl import Workbook
-from moviepy.editor import AudioFileClip
+from moviepy import AudioFileClip
 from docx import Document
 import fitz
 
@@ -141,7 +141,7 @@ def convert_pdf_to_excel_route():
         return f"Erro ao converter PDF para Excel: {str(e)}", 500
 
     download_link = url_for("download_file", filename=os.path.basename(output_path))
-    return render_template("indexpdfword.html", download_link=download_link)
+    return render_template("indexexcelpdf.html", download_link=download_link)
 
 @app.route("/convert_excel_to_pdf", methods=["POST"])
 def convert_excel_to_pdf_route():
@@ -165,7 +165,41 @@ def convert_excel_to_pdf_route():
         return f"Erro ao converter Excel para PDF: {str(e)}", 500
 
     download_link = url_for("download_file", filename=os.path.basename(output_path))
-    return render_template("indexpdfword.html", download_link=download_link)
+    return render_template("indexexcelpdf.html", download_link=download_link)
+
+@app.route("/converterpdfword", methods=["POST"])
+def converter_pdf_e_word():
+    """Converte arquivos entre PDF e Word com base no tipo selecionado."""
+    file = request.files.get("file")
+    conversion_type = request.form.get("conversionType")
+
+    if not file or not conversion_type:
+        return "Arquivo ou tipo de conversão não selecionado.", 400
+
+    input_filename = secure_filename(file.filename)
+    input_path = os.path.join(app.config["UPLOAD_FOLDER"], input_filename)
+    file.save(input_path)
+
+    output_filename = f"converted_{os.path.splitext(input_filename)[0]}"
+    output_path = None
+
+    try:
+        if conversion_type == "pdf-to-word":
+            if not is_valid_extension(input_filename, [".pdf"]):
+                return "Erro: Para PDF para Word, o arquivo enviado deve ser um PDF.", 400
+            output_path = os.path.join(app.config["UPLOAD_FOLDER"], output_filename + ".docx")
+            convert_pdf_to_word(input_path, output_path)
+        elif conversion_type == "word-to-pdf":
+            if not is_valid_extension(input_filename, [".docx"]):
+                return "Erro: Para Word para PDF, o arquivo enviado deve ser um DOCX.", 400
+            output_path = os.path.join(app.config["UPLOAD_FOLDER"], output_filename + ".pdf")
+            convert_word_to_pdf(input_path, output_path)
+        else:
+            return "Tipo de conversão inválido.", 400
+    except Exception as e:
+        return f"Erro inesperado: {str(e)}", 500
+
+    return send_file(output_path, as_attachment=True, download_name=os.path.basename(output_path))
 
 def convert_pdf_to_word(input_path, output_path):
     try:

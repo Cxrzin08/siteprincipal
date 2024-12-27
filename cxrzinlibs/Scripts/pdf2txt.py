@@ -1,4 +1,4 @@
-#!C:\Users\felip\siteprincipal-1\cxrzinlibs\Scripts\python.exe
+#!C:\Users\felip\siteprincipal-2\cxrzinlibs\Scripts\python.exe
 """A command line tool for extracting text and images from PDF and
 output it to plain text, html, xml or tags."""
 import argparse
