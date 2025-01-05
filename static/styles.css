@@ -10,28 +10,31 @@ body {
 
 /* Cabeçalho */
 header {
-    background-color: #333;
+    background-color: #007bff; /* Azul */
     color: white;
     padding: 20px;
     text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header p {
+    margin: 0 0 10px 0;
 }
 
 header .logo {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 10px;
 }
 
-header .logo img:first-child {
+header .logo img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-}
-
-header .logo img:not(:first-child) {
-    width: 50px;
-    height: 50px;
 }
 
 header h1 {
@@ -42,53 +45,65 @@ header h1 {
     text-transform: uppercase;
 }
 
-/* Barra de navegação */
-nav {
-    margin-top: 10px;
-}
-
-nav a {
+/* Drawer */
+.drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #007bff; /* Azul */
     color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    padding: 10px 20px;
-    background-color: #444;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    padding-top: 60px;
 }
 
-nav a:hover {
-    background-color: #555;
+.drawer.active {
+    transform: translateX(0);
 }
 
-/* Barra de ferramentas */
-.toolbar {
-    background-color: #007bff;
-    padding: 15px;
+.drawer .nav-links {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: center;
 }
 
-.toolbar a {
+.drawer .nav-links a {
     color: white;
     text-decoration: none;
-    padding: 12px 25px;
-    background-color: #0056b3;
+    margin: 10px 0;
+    font-size: 18px;
+    padding: 10px 15px;
     border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    transition: color 0.3s, background-color 0.3s, transform 0.3s;
 }
 
-.toolbar a:hover {
-    background-color: #004085;
+.drawer .nav-links a:hover {
+    color: #007bff; /* Azul */
+    background-color: white;
+    transform: scale(1.1);
+}
+
+/* Drawer Toggle */
+.drawer-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    z-index: 1001;
 }
 
 /* Seção principal */
 main {
     padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .hero {
@@ -122,7 +137,7 @@ main {
 
 .hero-text h2 {
     font-size: 3em;
-    color: #007bff;
+    color: #007bff; /* Azul */
     margin-bottom: 10px;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -167,14 +182,14 @@ main {
 /* Rodapé */
 footer {
     text-align: center;
-    background-color: #333;
+    background-color: #007bff; /* Azul */
     color: white;
     padding: 20px;
     position: relative;
 }
 
 footer a {
-    color: #007bff;
+    color: white;
     text-decoration: none;
 }
 
@@ -183,33 +198,48 @@ footer a:hover {
 }
 
 /* Consentimento de cookies */
-.cookie-consent {
+.cookie-banner {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #333;
+    background-color: rgba(0, 0, 0, 0.9);
     color: white;
-    padding: 10px;
-    font-size: 0.9em;
-    border-radius: 5px;
     text-align: center;
-    z-index: 1000;
+    padding: 20px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    animation: slideUp 1s ease-in-out;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    border-top: 3px solid yellow;
 }
 
-.cookie-consent button {
-    padding: 8px 15px;
-    background-color: #007bff;
+.cookie-banner p {
+    margin: 0;
+    flex: 1;
+    font-size: 14px;
+}
+
+.cookie-banner a {
+    color: yellow;
+    text-decoration: underline;
+}
+
+.cookie-banner button {
+    background-color: #4CAF50;
     color: white;
     border: none;
-    border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
-    font-size: 0.9em;
     transition: background-color 0.3s;
+    border-radius: 5px;
+    margin-left: 20px;
+    font-size: 14px;
 }
 
-.cookie-consent button:hover {
-    background-color: #0056b3;
+.cookie-banner button:hover {
+    background-color: #45a049;
 }
 
 /* Modal do termo completo */
