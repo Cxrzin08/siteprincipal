@@ -60,7 +60,7 @@ def conversao_txtpdf():
 @app.route('/conversao_pdfimages')
 def conversao_pdfimages():
     return render_template('indexpdfimagens.html')
-
+ 
 @app.route("/convert_image", methods=["POST"])
 def convert_image():
     file = request.files.get("file")
