@@ -1,6 +1,8 @@
 import os
 from flask import Flask, request, render_template, send_file, url_for, send_from_directory
 from werkzeug.utils import secure_filename
+import fitz 
+import shutil
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import pdfplumber
@@ -52,9 +54,68 @@ def conversao_excelorpdf():
     return render_template('indexexcelpdf.html')
 
 @app.route('/conversao_txtpdf')
-def conversao_pdfimagens():
+def conversao_txtpdf():
     return render_template('indexpdftxt.html')
 
+@app.route('/conversao_pdfimages')
+def conversao_pdfimages():
+    return render_template('indexpdfimagens.html')
+
+@app.route("/convert_image", methods=["POST"])
+def convert_image():
+    file = request.files.get("file")
+
+    if not file:
+        return "Nenhum arquivo enviado.", 400
+
+    input_filename = secure_filename(file.filename)
+    if not is_valid_extension(input_filename, [".pdf"]):
+        return "Formato de arquivo inválido. Apenas PDF é permitido.", 400
+
+    input_path = os.path.join(app.config["UPLOAD_FOLDER"], input_filename)
+    file.save(input_path)
+
+    output_folder = os.path.join(app.config["OUTPUT_FOLDER"], os.path.splitext(input_filename)[0])
+    os.makedirs(output_folder, exist_ok=True)
+
+    output_format = request.form.get("outputFormat", "PNG").upper()
+
+    if output_format not in ["PNG", "JPG"]:
+        return "Formato de saída inválido. Apenas PNG ou JPG são permitidos.", 400
+
+    try:
+        convert_pdf_to_images(input_path, output_folder, output_format)
+    except Exception as e:
+        return str(e), 500
+
+    download_link = url_for("download_image", folder=os.path.basename(output_folder))
+    return render_template("indexpdfimagens.html", download_link=download_link)
+
+@app.route("/download/<folder>")
+def download_image(folder):
+    folder_path = os.path.join(app.config["OUTPUT_FOLDER"], folder)
+    if not os.path.exists(folder_path):
+        return "Pasta não encontrada.", 404
+
+    zip_path = f"{folder_path}.zip"
+    if not os.path.exists(zip_path):
+        shutil.make_archive(folder_path, 'zip', folder_path)
+
+    return send_file(zip_path, as_attachment=True)
+
+def convert_pdf_to_images(input_path, output_folder, output_format):
+    try:
+        pdf_document = fitz.open(input_path)
+        for page_number in range(len(pdf_document)):
+            page = pdf_document.load_page(page_number)
+            pix = page.get_pixmap()
+
+            output_file = os.path.join(output_folder, f"page_{page_number + 1}.{output_format.lower()}")
+            pix.save(output_file)
+        pdf_document.close()
+    except Exception as e:
+        raise Exception(f"Erro ao converter PDF para imagens: {str(e)}")
+    
 @app.route("/convert_file", methods=["POST"])
 def convert_file():
     file = request.files.get("file")
@@ -144,6 +205,61 @@ def convert_pdf_to_excel_route():
 
     download_link = url_for("download_file", filename=os.path.basename(output_path))
     return render_template("indexexcelpdf.html", download_link=download_link)
+
+@app.route("/convert_image", methods=["POST"])
+def convert_images():
+    file = request.files.get("file")
+
+    if not file:
+        return "Nenhum arquivo enviado.", 400
+
+    input_filename = secure_filename(file.filename)
+    if not is_valid_extension(input_filename, [".pdf"]):
+        return "Formato de arquivo inválido. Apenas PDF é permitido.", 400
+
+    input_path = os.path.join(app.config["UPLOAD_FOLDER"], input_filename)
+    file.save(input_path)
+
+    output_folder = os.path.join(app.config["OUTPUT_FOLDER"], os.path.splitext(input_filename)[0])
+    os.makedirs(output_folder, exist_ok=True)
+
+    output_format = request.form.get("outputFormat", "PNG").upper()
+
+    if output_format not in ["PNG", "JPG"]:
+        return "Formato de saída inválido. Apenas PNG ou JPG são permitidos.", 400
+
+    try:
+        convert_pdf_to_images(input_path, output_folder, output_format)
+    except Exception as e:
+        return str(e), 500
+
+    download_link = url_for("download_folder", folder=os.path.basename(output_folder))
+    return render_template("indexpdfimagens.html", download_link=download_link)
+
+@app.route("/download/<folder>")
+def download_folder(folder):
+    folder_path = os.path.join(app.config["OUTPUT_FOLDER"], folder)
+    if not os.path.exists(folder_path):
+        return "Pasta não encontrada.", 404
+
+    zip_path = f"{folder_path}.zip"
+    if not os.path.exists(zip_path):
+        shutil.make_archive(folder_path, 'zip', folder_path)
+
+    return send_file(zip_path, as_attachment=True)
+
+def convert_pdf_to_images(input_path, output_folder, output_format):
+    try:
+        pdf_document = fitz.open(input_path)
+        for page_number in range(len(pdf_document)):
+            page = pdf_document.load_page(page_number)
+            pix = page.get_pixmap()
+
+            output_file = os.path.join(output_folder, f"page_{page_number + 1}.{output_format.lower()}")
+            pix.save(output_file)
+        pdf_document.close()
+    except Exception as e:
+        raise Exception(f"Erro ao converter PDF para imagens: {str(e)}")
 
 @app.route("/convert_excel_to_pdf", methods=["POST"])
 def convert_excel_to_pdf_route():
@@ -398,19 +514,6 @@ def convert():
     output_folder_name = os.path.basename(output_folder)
     download_link = url_for("download_folder", folder=output_folder_name)
     return render_template("indexpdfimagens.html", download_link=download_link)
-
-@app.route("/download/<folder>")
-def download_folder(folder):
-    folder_path = os.path.join(app.config["UPLOAD_FOLDER"], folder)
-    if not os.path.exists(folder_path):
-        return "Erro: Pasta não encontrada.", 404
-
-    zip_path = f"{folder_path}.zip"
-    if not os.path.exists(zip_path):
-        import shutil
-        shutil.make_archive(folder_path, 'zip', folder_path)
-
-    return send_file(zip_path, as_attachment=True)
 
 def convert_pdf_to_images(input_path, output_folder, output_format):
     try:
