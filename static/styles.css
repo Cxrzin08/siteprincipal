@@ -212,7 +212,7 @@ footer a:hover {
     align-items: center;
     animation: slideUp 1s ease-in-out;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-    border-top: 3px solid yellow;
+    border-top: 3px solid #007bff;
 }
 
 .cookie-banner p {
@@ -222,7 +222,7 @@ footer a:hover {
 }
 
 .cookie-banner a {
-    color: yellow;
+    color: #007bff;
     text-decoration: underline;
 }
 

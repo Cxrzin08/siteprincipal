@@ -12,6 +12,7 @@ from moviepy import AudioFileClip
 from docx import Document
 import fitz
 from fpdf import FPDF
+from PIL import Image
 import PyPDF2
 
 app = Flask(__name__)
@@ -60,6 +61,10 @@ def conversao_txtpdf():
 @app.route('/conversao_pdfimages')
 def conversao_pdfimages():
     return render_template('indexpdfimagens.html')
+
+@app.route('/conversao_pngparaico')
+def conversao_pngparaico():
+    return render_template('indexpngtoico.html')
  
 @app.route("/convert_image", methods=["POST"])
 def convert_image():
@@ -91,17 +96,78 @@ def convert_image():
     download_link = url_for("download_image", folder=os.path.basename(output_folder))
     return render_template("indexpdfimagens.html", download_link=download_link)
 
-@app.route("/download/<folder>")
-def download_image(folder):
-    folder_path = os.path.join(app.config["OUTPUT_FOLDER"], folder)
-    if not os.path.exists(folder_path):
-        return "Pasta não encontrada.", 404
+@app.route("/convert_pngparaico", methods=["POST"])
+def convert_png_to_ico_route():
+    """Converte arquivos PNG para ICO."""
+    file = request.files.get("file")
+    icon_size = request.form.get("iconSize", "256")  # Tamanho padrão de ícone
 
-    zip_path = f"{folder_path}.zip"
-    if not os.path.exists(zip_path):
-        shutil.make_archive(folder_path, 'zip', folder_path)
+    if not file:
+        return "Nenhum arquivo enviado.", 400
 
-    return send_file(zip_path, as_attachment=True)
+    input_filename = secure_filename(file.filename)
+
+    # Verifica se a extensão é válida
+    valid_extensions = [".png"]
+    if not is_valid_extension(input_filename, valid_extensions):
+        return f"Erro: O arquivo deve ser {', '.join(valid_extensions).upper()}.", 400
+
+    # Salva o arquivo de entrada
+    input_path = os.path.join(app.config["UPLOAD_FOLDER"], input_filename)
+    file.save(input_path)
+
+    # Verifica se o diretório de saída existe, se não, cria
+    output_folder = app.config["OUTPUT_FOLDER"]
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    # Define o arquivo de saída
+    output_filename = f"converted_{os.path.splitext(input_filename)[0]}.ico"
+    output_path = os.path.join(output_folder, output_filename)
+
+    try:
+        # Converte o arquivo PNG para ICO
+        convert_png_to_ico(input_path, output_path, int(icon_size))
+    except Exception as e:
+        return f"Erro inesperado: {str(e)}", 500
+
+    # Agora cria o arquivo ZIP com o nome correto
+    zip_filename = f"{os.path.splitext(output_filename)[0]}.zip"
+    zip_path = os.path.join(output_folder, zip_filename)
+
+    try:
+        # Compacta o arquivo ICO em um arquivo ZIP
+        shutil.make_archive(zip_path.replace('.zip', ''), 'zip', output_folder, output_filename)
+        download_link = url_for("download_image", filename=zip_filename)
+        return render_template("indexpngtoico.html", download_link=download_link)
+    except Exception as e:
+        return f"Erro ao criar o arquivo ZIP: {str(e)}", 500
+
+
+@app.route("/download_image/<filename>")
+def download_image(filename):
+    """Baixa o arquivo ZIP com o arquivo ICO convertido."""
+    # Define o diretório onde os arquivos convertidos são armazenados
+    output_folder = app.config["OUTPUT_FOLDER"]
+    file_path = os.path.join(output_folder, filename)
+
+    # Verifica se o arquivo existe
+    if not os.path.exists(file_path):
+        return "Arquivo não encontrado.", 404
+
+    # Envia o arquivo ZIP para download
+    return send_file(file_path, as_attachment=True)
+
+
+def convert_png_to_ico(input_path, output_path, icon_size):
+    """Converte um arquivo PNG para ICO com o tamanho especificado."""
+    try:
+        with Image.open(input_path) as img:
+            img = img.resize((icon_size, icon_size), Image.Resampling.LANCZOS)
+            img.save(output_path, format="ICO")
+    except Exception as e:
+        raise Exception(f"Erro ao converter PNG para ICO: {str(e)}")
+
 
 def convert_pdf_to_images(input_path, output_folder, output_format):
     try:
