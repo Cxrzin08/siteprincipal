@@ -595,4 +595,4 @@ def convert_pdf_to_images(input_path, output_folder, output_format):
         raise Exception(f"Erro ao converter PDF para imagens: {str(e)}")
     
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=25566)
