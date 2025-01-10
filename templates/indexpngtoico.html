@@ -1,29 +1,31 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3809749496544897"
+     crossorigin="anonymous"></script>
     <meta name="description" content="Converta seus arquivos PNG para ICO de forma rápida e fácil!">
-    <title>Conversor PNG para ICO By Cxrzin - Rápido e Gratuito</title>
+    <title>Conversor PNG ↔ ICO</title>
     <link rel="stylesheet" href="/static/stylespngico.css">
 </head>
 <body>
     <div class="container">
-        <h1>Conversor PNG para ICO By Cxrzin</h1>
-        <form action="/convert_pngparaico" method="post" enctype="multipart/form-data">
-            <label for="file">Selecione um arquivo PNG:</label>
-            <input type="file" name="file" id="file" accept=".png" required>
-            
-            <label for="iconSize">Tamanho do ícone (em pixels):</label>
-            <select name="iconSize" id="iconSize">
+        <h1>Conversor PNG ↔ ICO</h1>
+        <form action="/convert_pngparaico" method="POST" enctype="multipart/form-data">
+            <label for="fileInput">Selecione um arquivo PNG:</label>
+            <input type="file" id="fileInput" name="file" accept=".png" required>
+
+            <label for="conversionType">Escolha o tamanho do ícone:</label>
+            <select id="iconSize" name="iconSize" required>
                 <option value="16" style="color: #000;">16x16</option>
                 <option value="32" style="color: #000;">32x32</option>
                 <option value="64" style="color: #000;">64x64</option>
                 <option value="128" style="color: #000;">128x128</option>
                 <option value="256" style="color: #000;" selected>256x256</option>
             </select>
-            
-            <button type="submit">Converter para ICO</button>
+
+            <button type="submit">Converter</button>
         </form>
 
         {% if download_link %}
