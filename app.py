@@ -42,6 +42,7 @@ def politica_privacidade():
 def termos_de_uso():
     return render_template('termos.html')
 
+
 @app.route('/conversao_pdfword')
 def conversao_pdfword():
     return render_template('indexpdfword.html')
