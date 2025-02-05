@@ -101,43 +101,43 @@ def convert_image():
 def convert_png_to_ico_route():
     """Converte arquivos PNG para ICO."""
     file = request.files.get("file")
-    icon_size = request.form.get("iconSize", "256")  # Tamanho padrão de ícone
+    icon_size = request.form.get("iconSize", "256")
 
     if not file:
         return "Nenhum arquivo enviado.", 400
 
     input_filename = secure_filename(file.filename)
 
-    # Verifica se a extensão é válida
+    
     valid_extensions = [".png"]
     if not is_valid_extension(input_filename, valid_extensions):
         return f"Erro: O arquivo deve ser {', '.join(valid_extensions).upper()}.", 400
 
-    # Salva o arquivo de entrada
+   
     input_path = os.path.join(app.config["UPLOAD_FOLDER"], input_filename)
     file.save(input_path)
 
-    # Verifica se o diretório de saída existe, se não, cria
+  
     output_folder = app.config["OUTPUT_FOLDER"]
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    # Define o arquivo de saída
+    
     output_filename = f"converted_{os.path.splitext(input_filename)[0]}.ico"
     output_path = os.path.join(output_folder, output_filename)
 
     try:
-        # Converte o arquivo PNG para ICO
+       
         convert_png_to_ico(input_path, output_path, int(icon_size))
     except Exception as e:
         return f"Erro inesperado: {str(e)}", 500
 
-    # Agora cria o arquivo ZIP com o nome correto
+    
     zip_filename = f"{os.path.splitext(output_filename)[0]}.zip"
     zip_path = os.path.join(output_folder, zip_filename)
 
     try:
-        # Compacta o arquivo ICO em um arquivo ZIP
+       
         shutil.make_archive(zip_path.replace('.zip', ''), 'zip', output_folder, output_filename)
         download_link = url_for("download_image", filename=zip_filename)
         return render_template("indexpngtoico.html", download_link=download_link)
@@ -148,15 +148,15 @@ def convert_png_to_ico_route():
 @app.route("/download_image/<filename>")
 def download_image(filename):
     """Baixa o arquivo ZIP com o arquivo ICO convertido."""
-    # Define o diretório onde os arquivos convertidos são armazenados
+   
     output_folder = app.config["OUTPUT_FOLDER"]
     file_path = os.path.join(output_folder, filename)
 
-    # Verifica se o arquivo existe
+   
     if not os.path.exists(file_path):
         return "Arquivo não encontrado.", 404
 
-    # Envia o arquivo ZIP para download
+    
     return send_file(file_path, as_attachment=True)
 
 
