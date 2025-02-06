@@ -1,14 +1,13 @@
-/* Geral */
+
 body {
     font-family: 'Poppins', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #000080, #000000); /* Gradiente azul e preto */
-    color: #fff; /* Cor do texto ajustada para contraste */
+    background: linear-gradient(135deg, #000080, #000000);
+    color: #fff;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Cabeçalho */
 header {
     background: linear-gradient(135deg, #202020, #0056b3);
     color: white;
@@ -44,7 +43,6 @@ header h1 {
     text-transform: uppercase;
 }
 
-/* Drawer */
 .drawer {
     position: fixed;
     top: 0;
@@ -85,7 +83,6 @@ header h1 {
     transform: scale(1.1);
 }
 
-/* Drawer Toggle */
 .drawer-toggle {
     position: fixed;
     top: 15px;
@@ -96,7 +93,6 @@ header h1 {
     z-index: 1001;
 }
 
-/* Seção principal */
 main {
     padding: 20px;
     display: flex;
@@ -109,7 +105,7 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(0, 0, 0, 0.6); /* Preto transparente */
+    background: rgba(0, 0, 0, 0.6);
     padding: 100px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -203,7 +199,7 @@ footer a:hover {
 }
 
 .cookie-banner button {
-    background-color: #4CAF50;
+    background-color: #0056b3;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -215,10 +211,9 @@ footer a:hover {
 }
 
 .cookie-banner button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
-/* Modal do termo completo */
 #termo-completo {
     display: none;
     background-color: white;
@@ -262,7 +257,6 @@ footer a:hover {
     background-color: #cc0000;
 }
 
-/* Animações */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -283,7 +277,6 @@ footer a:hover {
     }
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
     header h1 {
         font-size: 2em;
