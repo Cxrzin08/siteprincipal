@@ -140,19 +140,17 @@ main {
 }
 
 .hero-text p {
-    font-size: 1.5em; /* Aumenta o tamanho do texto */
+    font-size: 1.5em;
     line-height: 1.6;
-    color: white; /* Texto branco */
-    font-weight: bold; /* Deixa o texto mais destacado */
+    color: white; 
+    font-weight: bold;
 }
 
-/* Efeito de Hover no texto */
 .hero-text:hover h2 {
     color: #0056b3;
     text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* Rodapé */
 footer {
     text-align: center;
     background: linear-gradient(135deg, #202020, #0056b3);
@@ -169,7 +167,6 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* Consentimento de cookies */
 .cookie-banner {
     position: fixed;
     bottom: 0;
