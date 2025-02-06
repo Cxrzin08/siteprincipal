@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Converta seus arquivos PDF em imagens JPG ou PNG de forma rápida e fácil, sem complicações!">
-    <meta name="keywords" content="PDF para JPG, PDF para PNG, conversor PDF, conversão de arquivos, converter PDF em imagem, extrair imagens de PDF, PDF para foto, ferramenta online">
-    <meta name="robots" content="index, follow">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3809749496544897"
-     crossorigin="anonymous"></script>
-    <title>Conversor Cxrzin - Transforme seus arquivos com facilidade</title>
+    <meta name="description" content="Converta seus arquivos PDF em imagens JPG ou PNG de forma rápida e fácil!">
     <link rel="icon" type="image/webp" href="{{ url_for('static', filename='images/logo.webp') }}">
+    <meta name="keywords" content="
+PDF para JPG, PDF para PNG, conversor PDF, conversão de arquivos, 
+converter PDF em imagem, extrair imagens de PDF, PDF para foto, 
+PDF para imagem grátis, alta qualidade, rápido e fácil, sem marca d'água, 
+ferramenta online, exportar PDF como imagem, baixar JPG de PDF, 
+baixar PNG de PDF, transformar PDF em imagem, converter documentos PDF, 
+melhor conversor de PDF, grátis e online, PDF converter pro">
+<meta name="robots" content="index, follow">
+    <title>Conversor Cxrzin</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -28,29 +32,30 @@
         <i class="fas fa-bars"></i>
     </div>
     <header>
+        <p>Ao apertar em uma das opções, volte e tente apertar novamente para fechar o anúncio.</p>
         <div class="logo">
-            <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo do Conversor Cxrzin" class="logo-img">
+            <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo" class="logo-img">
             <h1>Conversor Cxrzin</h1>
         </div>
-        <p>Clique em uma opção e, se necessário, volte e tente novamente para fechar o anúncio.</p>
     </header>
+
     <main>
         <section class="hero">
-            <img src="{{ url_for('static', filename='images/image.webp') }}" alt="Imagem representando a conversão de arquivos" class="hero-img">
+            <img src="{{ url_for('static', filename='images/image.webp') }}" alt="Imagem do Posto" class="hero-img">
             <div class="hero-text">
                 <h2>Bem-vindo ao Conversor Cxrzin</h2>
-                <p>Transforme seus arquivos com rapidez e qualidade.</p>
-                <p>Nosso conversor suporta diversos formatos para atender às suas necessidades.</p>
+                <p>Ao apertar em uma das opções, volte e tente apertar novamente para fechar o anúncio</p>
+                <p>Com o Conversor Cxrzin, você tem acesso a uma plataforma prática e eficiente para conversão de arquivos.</p>
+                <p>Oferecemos suporte a vários formatos, garantindo que você tenha a melhor experiência ao utilizar nossos serviços.</p>
             </div>
         </section>
     </main>
     <footer>
-        <p>&copy; 2024 Conversor Cxrzin. Todos os direitos reservados. | 
-        <a href="{{ url_for('termos_de_uso') }}" id="termsLink">Termos de Uso</a> | 
-        <a href="{{ url_for('politica_privacidade') }}">Política de Privacidade</a></p>
+        <p>&copy; 2024 Conversor Cxrzin. Todos os direitos reservados. | <a href="{{ url_for('termos_de_uso') }}" id="termsLink">Termos de Uso</a> | <a href="{{ url_for('politica_privacidade') }}">Política de Privacidade</a></p>
     </footer>
+
     <div class="cookie-banner" id="cookie-banner">
-        <p>Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você aceita nossa <a href="{{ url_for('politica_privacidade') }}" style="color: #007bff;">Política de Privacidade</a>.</p>
+        <p>Este site utiliza cookies para garantir a melhor experiência. Ao continuar navegando, você aceita nossa <a href="{{ url_for('politica_privacidade') }}" style="color: #007bff;">Política de Privacidade</a>.</p>
         <button onclick="acceptCookies()">Aceitar</button>
     </div>
 
@@ -61,11 +66,13 @@
         }
 
         window.onload = function() {
-            if (localStorage.getItem('cookiesAccepted') === 'true') {
-                document.getElementById('cookie-banner').style.display = 'none';
+            if (!localStorage.getItem('cookiesAccepted')) {
+                document.getElementById('cookie-banner').style.display = 'flex';
             }
-        };
+        }
+    </script>
 
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const drawerToggle = document.getElementById('drawer-toggle');
             const navbar = document.getElementById('navbar');
