@@ -9,7 +9,7 @@ import pdfplumber
 import pandas as pd
 from openpyxl import Workbook
 from moviepy import AudioFileClip
-from docx import Document
+from docx import Document 
 import fitz
 from fpdf import FPDF
 from PIL import Image
